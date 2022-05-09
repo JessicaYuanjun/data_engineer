@@ -1,4 +1,14 @@
 # Data Engineer
+## 0. Technical Skills
+  - Database
+    - SQL
+    - Data Modeling
+  - Python
+  - Airflow
+  - Spark
+  - Hadoop
+  - Cloud
+    - AWS 
 ## 1. Ingest data from different sources
 ### 1.1 Data Sources
   - Application
@@ -45,6 +55,7 @@
   - Extract
   - Transform
   - Load    
+### 2.3 Airflow
 
 ## 3. Set up storage
 ### 3.1 Think about 
@@ -57,6 +68,7 @@
   - Store structure or unstructured data
   - Key-value store
 ### 3.3 SQL Database (SQLite, MySQL, PostgreSQL, Oracal, MS SQL)
+  - Data modeling
   - Schema, tables, relationship
   - Store and orgaize data
   - For rapid search and retrival
@@ -191,7 +203,7 @@
         - Linix's cron
         - Luigi
         - Airflow
-### 4.5Parallel computing
+### 4.5 Parallel computing
   <img width="649" alt="截屏2022-05-07 下午3 37 22" src="https://user-images.githubusercontent.com/47366120/167338604-595e9397-b30e-4577-91e5-501893ed0126.png">
 
   - How
