@@ -104,3 +104,64 @@ SQL (Structured Query Language) is a programming language designed for managing 
       FROM student
       WHERE gender = 'Male'
       ``` 
+- DQL
+  - Select
+    - Aggregate function 
+      - Min(), Max()
+      - Count(), Avg(), Sum()
+    - top (MS SQL)
+      ``` SQL
+      SELECT TOP 3 * FROM Customers;
+      ```
+    - NULL
+      - ifnull() - MySQL
+      ``` SQL
+      SELECT ProductName, UnitPrice * (UnitsInStock + IFNULL(UnitsOnOrder, 0))
+      FROM Products;
+      ``` 
+      - isnull() - sql server
+      ``` SQL
+      SELECT ProductName, UnitPrice * (UnitsInStock + ISNULL(UnitsOnOrder, 0))
+      FROM Products;
+      ``` 
+    - COALESCE - 可以接受多个参数，并且返回第一个非null的参数，如果都是null则函数返回null
+      ``` SQL
+      SELECT name, price - COALESCE(discount, 0) AS real_price FROM for_sale;
+      ``` 
+    - CASE WHEN - goes through conditions and return a value when the first condition is met
+      ``` SQL
+      SELECT OrderID, Quantity,
+      CASE
+        WHEN Quantity > 30 THEN 'The quantity is greater than 30'
+        WHEN Quantity = 30 THEN 'The quantity is 30'
+        ELSE 'The quantity is under 30'
+      END AS QuantityText
+      FROM OrderDetails;
+      
+      -- 行转列 
+      -- 如果是分组后再转置；也就是需要先group by再转置，则需要对case when 或 if 使用聚合函数。
+      -- 即： group by和聚合函数要么都出现，要么都不出现。
+      SELECT createtime,
+           CASE paytype WHEN '支付宝' THEN money END AS '支付宝',
+           CASE paytype WHEN '手机短信' then money end as '手机短信'
+      FROM inpours ;      
+      
+      ``` 
+      
+  - from 
+    - join: used to combine rows from two or more tables, based related columns
+      - full join
+      - inner join
+      - left join
+      - right join
+      - cross join
+      - self join 
+    - temporary table
+  - where
+    - between and
+    - in / not in
+    - Like / not like
+      - '%'
+      - '_'
+    - is null / is not null
+     
