@@ -46,15 +46,30 @@ SQL (Structured Query Language) is a programming language designed for managing 
         - timestamp
       - Partitioned  
         - create partition function
+      - Keys
+        - Primary key: a set of attributes that can be used to uniquely identify every record
+        - Foreigner key:
+          - Maintains referential integrity by enforcing a link between the data in two tables
+          - In child table its primary key
+          - Constrain prevents actions that would destroy links between child and parent
+        - Unique key:
+          - Identifies a single row in the table
+          - Multiple and null allowed but duplicate are not allowed 
       - Constraints
-        - PRIMARY KEY
-          - CLUSTERED | NONCLUSTERED the index type
-          - （column_name1[, column_name2,…,column_name16]）
+        - NOT NULL
         - UNIQUE
-        - FOREIGN
         - DEFAULT
         - CHECK
-        -      
+        - INDEX: Performance tuning method to allow faster retrieval of records from the table
+          - Unique index: not allow the field to have duplicates. If the primary key is defined, a unique index is applied automatically   
+          - Clustered index: reorder the physical order and search based on key values
+            - Easily retrieval of data from the database and it's faster
+            - Alter the way records are stored in the database as it sorts out rows by the column which is set to be clustered index
+            - One table can only have one clustered index
+          - Non cluster index: an index where the order of the rows does not match the physical order of the actual data
+            - Slower
+            - not alter the way stored but create a separate object within a table that points back to the original table rows after searching
+            - can habe more non cluster index
       ``` SQL
       CREATE TABLE dbo.PurchaseOrderDetail
       (
@@ -104,8 +119,8 @@ SQL (Structured Query Language) is a programming language designed for managing 
       FROM student
       WHERE gender = 'Male'
       ``` 
-- DQL
-  - Select
+- QUERY
+  - SELECT
     - Aggregate function 
       - Min(), Max()
       - Count(), Avg(), Sum()
@@ -146,22 +161,31 @@ SQL (Structured Query Language) is a programming language designed for managing 
            CASE paytype WHEN '手机短信' then money end as '手机短信'
       FROM inpours ;      
       
-      ``` 
-      
-  - from 
+      ```      
+  - FROM 
     - join: used to combine rows from two or more tables, based related columns
-      - full join
-      - inner join
-      - left join
-      - right join
-      - cross join
+      - full join: return all records where there is a match in left or right
+      - inner join: matching value in both tables
+      - left join: return records from all left table, use left thing to match right thing
+      - right join: 
+      - cross join: used to generate a paired combination of each row of the first table with each row of the second table
       - self join 
     - temporary table
-  - where
+  - WHERE
     - between and
     - in / not in
     - Like / not like
       - '%'
       - '_'
     - is null / is not null
+  - ORDER BY ASC/DESC
+  - GROUP BY - used for agg function
+  - HAVING - used for agg function to filter data
+  - UNION - The UNION operator is used to combine the result-set of two or more SELECT statements.
+    - Select only distinct values 
+    - Every SELECT statement within UNION must have the same number of columns
+    - The columns must also have similar data types
+    - The columns in every SELECT statement must also be in the same order
+  - UNION ALL
+    - Allow duplicate values 
      
