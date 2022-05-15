@@ -2,7 +2,7 @@
 ## 0. Technical Skills
   - Database
     - [SQL](https://github.com/JessicaYuanjun/data_engineer/tree/main/SQL)
-    - Data Modeling
+    - Database & Data Modeling
   - Python
   - Airflow
   - Spark
