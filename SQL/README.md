@@ -255,14 +255,14 @@ SQL (Structured Query Language) is a programming language designed for managing 
     -- 2011-07-21    
     ```
     
- - DATE_TRUNC('datepart',timestamp)
+  - DATE_TRUNC('datepart',timestamp)
    ``` SQL
    SELECT DATE_TRUNC('minute', TIMESTAMP '20200430 04:05:06.789');
    -- date_trunc
    -- 2020-04-30 04:05:00	
    ``` 
  
- - TO_TIMESTAMP(timestamp,format,is_strict)
+  - TO_TIMESTAMP(timestamp,format,is_strict)
     ``` SQL
     SELECT to_timestamp('2011-12-18 24:38:15', 'YYYY-MM-DD HH24:MI:SS');
     -- 2011-12-19 00:38:15+00 after 24 hour, it will count to the next day
@@ -272,16 +272,35 @@ SQL (Structured Query Language) is a programming language designed for managing 
     -- ERROR:  date/time field time value out of range: 24:38:15.0
     ``` 
     
- - DATEDIFF(datepart, {date|time|timez|timestamp},{date|time|timez|timestamp})
+  - DATEDIFF(datepart, {date|time|timez|timestamp},{date|time|timez|timestamp})
    ``` SQL
    select datediff(week,'2009-01-01','2009-12-31') as numweeks;
    -- 52
    ``` 
    
-- DATEADD(datepart,interval,{date|time|timez|timestamp})
+ - DATEADD(datepart,interval,{date|time|timez|timestamp})
   ``` SQL
   select dateadd(month,18,'2008-02-28');
   -- 2009-08-28 00:00
   ```
   - ADD_MONTH - if the date is at the end of the date, e.g 2022-04-30, add 1 month will be 2022-05-31
   - DATEADD 2022-04-30, add 1 month will be 2022-05-30
+### String
+  - REPLACE(string,'','')
+    ``` SQL
+    SELECT catid, catgroup,
+    REPLACE(catgroup, 'Shows', 'Theatre')
+    FROM category
+    ``` 
+  - SUBSTRING(string,start_point,length)
+    ``` SQL
+    SELECT SUBSTRING('caterpillar',6,4);
+    -- pill
+    ``` 
+  - TRIM('' from column)
+    ``` SQL
+    SELECT TRIM('"' FROM '"dog"');
+    -- dog
+    ```  
+
+
