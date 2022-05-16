@@ -256,11 +256,11 @@ SQL (Structured Query Language) is a programming language designed for managing 
     ```
     
   - DATE_TRUNC('datepart',timestamp)
-   ``` SQL
-   SELECT DATE_TRUNC('minute', TIMESTAMP '20200430 04:05:06.789');
-   -- date_trunc
-   -- 2020-04-30 04:05:00	
-   ``` 
+    ``` SQL
+    SELECT DATE_TRUNC('minute', TIMESTAMP '20200430 04:05:06.789');
+    -- date_trunc
+    -- 2020-04-30 04:05:00	
+    ``` 
  
   - TO_TIMESTAMP(timestamp,format,is_strict)
     ``` SQL
@@ -268,23 +268,23 @@ SQL (Structured Query Language) is a programming language designed for managing 
     -- 2011-12-19 00:38:15+00 after 24 hour, it will count to the next day
     
     -- is strict
-    SELECT to_timestamp('2011-12-18 24:38:15', 'YYYY-MM-DD HH24:MI:SS', TRUE);
+    SELECT TO_TIMESTAMP('2011-12-18 24:38:15', 'YYYY-MM-DD HH24:MI:SS', TRUE);
     -- ERROR:  date/time field time value out of range: 24:38:15.0
     ``` 
     
   - DATEDIFF(datepart, {date|time|timez|timestamp},{date|time|timez|timestamp})
-   ``` SQL
-   select datediff(week,'2009-01-01','2009-12-31') as numweeks;
-   -- 52
-   ``` 
+    ``` SQL
+    SELECT DATEDIFF(week,'2009-01-01','2009-12-31') as numweeks;
+    -- 52
+    ``` 
    
  - DATEADD(datepart,interval,{date|time|timez|timestamp})
-  ``` SQL
-  select dateadd(month,18,'2008-02-28');
-  -- 2009-08-28 00:00
-  ```
-  - ADD_MONTH - if the date is at the end of the date, e.g 2022-04-30, add 1 month will be 2022-05-31
-  - DATEADD 2022-04-30, add 1 month will be 2022-05-30
+   ``` SQL
+   SELECT DATEADD(month,18,'2008-02-28');
+    -- 2009-08-28 00:00
+   ```
+   - ADD_MONTH - if the date is at the end of the date, e.g 2022-04-30, add 1 month will be 2022-05-31
+   - DATEADD 2022-04-30, add 1 month will be 2022-05-30
 ### String
   - REPLACE(string,'','')
     ``` SQL
