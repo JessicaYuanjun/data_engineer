@@ -20,8 +20,7 @@ SQL (Structured Query Language) is a programming language designed for managing 
 ### 1.3 Execution Order
   FROM - WHERE - GROUP BY - HAVING - SELECT - WINDOW FUNCTION - ORDER BY
 ## 2. SQL commands and statements
-### 2.1 Conmands about table
-#### 2.1.1 CREATE
+### 2.1 CREATE
   - **SCHEMA - usually cannot create an empty schema, need to create a table**
     ``` SQL
     CREATE SCHEMA Sales AUTHORIZATION [Contoso\Mary];  
@@ -122,7 +121,7 @@ SQL (Structured Query Language) is a programming language designed for managing 
     FROM student
     WHERE gender = 'Male'
     ``` 
-#### 2.1.2 QUERY
+### 2.2 QUERY
 - **SELECT**
   - **Aggregate function** 
     - Min(), Max()
@@ -165,7 +164,7 @@ SQL (Structured Query Language) is a programming language designed for managing 
     FROM inpours ;      
     ```    
   - **WINDOW FUNCTION**
-    - VALUE
+    - **VALUE**
       - FIRST_VALUE():Value of argument from first row of window frame     
       - LAST_VALUE(): Value of argument from last row of window frame
       - NTH_VALUE: Value of argument from N-th row of window frame
@@ -181,7 +180,7 @@ SQL (Structured Query Language) is a programming language designed for managing 
              LEAD(score,1,0) OVER(PARTITION BY student_id ORDER BY score DESC) AS gab_from_next_test                
       FROM Student
       ``` 
-    - RANKING
+    - **RANKING**
       - RANK(): gap rank 1,2,2,4
       - DENSE_RANK(): continuesely rank 1,2,2,3
       - ROW_NUMBER(): row number
@@ -198,7 +197,7 @@ SQL (Structured Query Language) is a programming language designed for managing 
              NTILE(4) OVER (PARTITION BY BY student_id ORDER BY score) AS 'CUME_DIST1' 
       FROM Student
       ``` 
-    - AGGREGATE 
+    - **AGGREGATE** 
       - AVG()
       - COUNT()
       - MAX()
@@ -215,9 +214,19 @@ SQL (Structured Query Language) is a programming language designed for managing 
       WHERE course='Math'      
       ``` 
     - window function just will not change table structure because it excuted only before order by
-    - NULLS 值将被视为其自己的组，并根据 NULLS FIRST 或 NULLS LAST 选项进行排序和排名。默认情况下，按 ASC 顺序最后对 NULL 值进行排序和排名，按 DESC 顺序首先对 NULL 值进行排序和排名。 
+    - NULLS 值将被视为其自己的组，并根据 NULLS FIRST 或 NULLS LAST 选项进行排序和排名。默认情况下，按 ASC 顺序最后对 NULL 值进行排序和排名，按 DESC 顺序首先对 NULL 值进行排序和排名。
+  - **WHERE**
+    - between and
+    - in / not in
+    - Like / not like
+      - '%'
+      - '_'
+    - is null / is not null
+  - **ORDER BY ASC/DESC**
+  - **GROUP BY - used for agg function**
+  - **HAVING - used for agg function to filter data** 
 
-#### 2.2.3 FROM 
+### 2.3 FROM and Tables
   - **JOIN: used to combine rows from two or more tables, based related columns**
     - full join: return all records where there is a match in left or right
     - inner join: matching value in both tables
@@ -225,22 +234,54 @@ SQL (Structured Query Language) is a programming language designed for managing 
     - right join: 
     - cross join: used to generate a paired combination of each row of the first table with each row of the second table
     - self join 
-  - temporary table
-- **WHERE**
-  - between and
-  - in / not in
-  - Like / not like
-    - '%'
-    - '_'
-  - is null / is not null
-- **ORDER BY ASC/DESC**
-- **GROUP BY - used for agg function**
-- **HAVING - used for agg function to filter data**
-- **UNION - The UNION operator is used to combine the result-set of two or more SELECT statements.**
-  - Select only distinct values 
-  - Every SELECT statement within UNION must have the same number of columns
-  - The columns must also have similar data types
-  - The columns in every SELECT statement must also be in the same order
-- **UNION ALL**
-  - Allow duplicate values 
-
+  - **Temporary table**
+  - **UNION - The UNION operator is used to combine the result-set of two or more SELECT statements.**
+    - Select only distinct values 
+    - Every SELECT statement within UNION must have the same number of columns
+    - The columns must also have similar data types
+    - The columns in every SELECT statement must also be in the same order
+  - **UNION ALL**
+    - Allow duplicate values 
+    
+### 2.4 Date
+  - TRUNC(timestamp) reutrn date
+    ``` SQL
+    select sysdate;
+    -- return timestamp
+    -- 2011-07-21 10:32:38.248109
+    
+    select trunc(sysdate);
+    -- trunc
+    -- 2011-07-21    
+    ```
+    
+ - DATE_TRUNC('datepart',timestamp)
+   ``` SQL
+   SELECT DATE_TRUNC('minute', TIMESTAMP '20200430 04:05:06.789');
+   -- date_trunc
+   -- 2020-04-30 04:05:00	
+   ``` 
+ 
+ - TO_TIMESTAMP(timestamp,format,is_strict)
+    ``` SQL
+    SELECT to_timestamp('2011-12-18 24:38:15', 'YYYY-MM-DD HH24:MI:SS');
+    -- 2011-12-19 00:38:15+00 after 24 hour, it will count to the next day
+    
+    -- is strict
+    SELECT to_timestamp('2011-12-18 24:38:15', 'YYYY-MM-DD HH24:MI:SS', TRUE);
+    -- ERROR:  date/time field time value out of range: 24:38:15.0
+    ``` 
+    
+ - DATEDIFF(datepart, {date|time|timez|timestamp},{date|time|timez|timestamp})
+   ``` SQL
+   select datediff(week,'2009-01-01','2009-12-31') as numweeks;
+   -- 52
+   ``` 
+   
+- DATEADD(datepart,interval,{date|time|timez|timestamp})
+  ``` SQL
+  select dateadd(month,18,'2008-02-28');
+  -- 2009-08-28 00:00
+  ```
+  - ADD_MONTH - if the date is at the end of the date, e.g 2022-04-30, add 1 month will be 2022-05-31
+  - DATEADD 2022-04-30, add 1 month will be 2022-05-30
